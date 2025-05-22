@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 type Player = {
@@ -36,17 +37,20 @@ async function getTeam(teamId: string): Promise<Team | null> {
 }
 
 export default async function TeamPage(props: PageProps) {
-  const id = await props.params.id;
+  const id = props.params.id;
 
   const team = await getTeam(id);
   if (!team) return notFound();
 
-  const players = await getPlayers(id);
+  let players = await getPlayers(id);
+  players = players.sort((a, b) =>
+    a.last_name.localeCompare(b.last_name)
+  );
 
   return (
     <div className="max-w-4xl mx-auto mt-10">
       <h2 className="text-3xl font-bold mb-6">{team.full_name}</h2>
-      <h3 className="text-xl mb-4">Spieler (max. 10):</h3>
+      <h3 className="text-xl mb-4">Spieler (max. 10, nach Nachnamen sortiert):</h3>
       <ul className="space-y-2">
         {players.map((p) => (
           <li key={p.id} className="bg-white dark:bg-gray-800 p-3 rounded shadow">
@@ -54,6 +58,13 @@ export default async function TeamPage(props: PageProps) {
           </li>
         ))}
       </ul>
+
+      <Link
+        href="/teams"
+        className="mt-8 inline-block text-blue-600 hover:underline dark:text-blue-400"
+      >
+        ⬅ Zurück zur Übersicht
+      </Link>
     </div>
   );
 }
