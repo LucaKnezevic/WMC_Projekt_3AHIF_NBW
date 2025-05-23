@@ -36,8 +36,16 @@ export default function HomePage() {
   }
 
   return (
+    
     <div className="max-w-xl mx-auto mt-10 px-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">Spielersuche</h1>
+      
+      <h1 className="text-5xl font-bold mb-6 text-center">
+        NATIONAL BASKETBALL WEBSITE
+      </h1>
+      <p className="text-lg text-center">
+        SUCHE DEINE LIEBLINGSSPIELER UND INFORMIERE DICH ÜBER DEINE LIEBLINGSTEAMS
+      </p>
+
 
       <div className="flex gap-2 mb-4">
         <input
